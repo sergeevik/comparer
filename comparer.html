@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<script type="text/javascript">
+			function compare() {
+				document.getElementById("equalChar").innerHTML = "";
+				var result = document.getElementById("result");
+				var first = document.getElementById("first").value;
+				var second = document.getElementById("second").value;
+
+				if (first.length != second.length) {
+					result.innerHTML = "length not equals";
+					result.innerHTML += "</br>first length = " + first.length;
+					result.innerHTML += "</br>second length = " + second.length;
+
+				}else if(first == second){
+					result.innerHTML = "words equals";
+				}else{
+					result.innerHTML = "notEquals";
+					compareByChar(first, second);
+				}
+
+			}
+
+			function compareByChar(first, second) {
+				var divEqulaChars = document.getElementById("equalChar");
+				divEqulaChars.innerHTML += `
+							<div class="divTableRow">
+								<div class="divTableCell">first</div>
+								<div class="divTableCell">byteCode</div>
+								<div class="divTableCell">second</div>
+								<div class="divTableCell">byteCode</div>
+							</div>
+							`;	
+				for (var i = 0; i < first.length; i++) {
+					if (first.charAt(i) == second.charAt(i)) {
+						divEqulaChars.innerHTML += `
+							<div class="charEqual divTableRow">
+								${divCharCreator(first, i)}
+								${divCharCreator(second, i)}
+							</div>
+							`;
+					}else{
+						divEqulaChars.innerHTML += `
+							<div class="charNotEqual divTableRow">
+								${divCharCreator(first, i)}
+								${divCharCreator(second, i)}
+							</div>
+							`;
+					}
+				}
+			}
+
+			function divCharCreator(string, index) {
+				return `
+					<div class="divTableCell">${string.charAt(index)}</div>
+					<div class="divTableCell">${string.charCodeAt(index)}</div>
+				`;
+			}
+		</script>
+
+		<style type="text/css">
+			.charEqual{
+				background: green;
+			}
+			.charNotEqual{
+				background: red;
+			}
+			.divTable{
+				display: table;
+			}
+			.divTableRow {
+				display: table-row;
+			}
+			.divTableHeading {
+				background-color: #EEE;
+				display: table-header-group;
+			}
+			.divTableCell, .divTableHead {
+				border: 1px solid #999999;
+				display: table-cell;
+				padding: 3px 10px;
+			}
+			.divTableHeading {
+				background-color: #EEE;
+				display: table-header-group;
+				font-weight: bold;
+			}
+			.divTableFoot {
+				background-color: #EEE;
+				display: table-footer-group;
+				font-weight: bold;
+			}
+			.divTableBody {
+				display: table-row-group;
+			}
+		</style>
+	</head>
+
+
+	<body>
+		<p>
+			первое слово
+		</p>
+		<input id="first" type="text"/>
+
+		<br/>
+
+		<p>
+			второе слово
+		</p>
+		<input id="second" type="text"/>
+		<br/>
+		<br/>
+		<button onclick="compare()"> сравнить </button>
+
+		<div id="result"></div>
+		<br/>
+		<br/>
+		<div class="divTable">
+			<div id="equalChar" class="divTableBody"/>
+		</div>
+	</body>
+
+</html>
